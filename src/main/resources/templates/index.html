@@ -19,7 +19,7 @@
 </head>
 <body onload="startTime()">
 <div class="container form-group" sec:authorize="isAuthenticated()">
-    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-2">
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-2 hidden-xs">
         <a class="btn btn-block btn-danger" th:href="@{/admin}">Administrare</a>
     </div>
     <form th:action="@{/logout}" method="post" class="col-md-2">
