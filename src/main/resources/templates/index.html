@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>Counter</title>
+    <link th:href="@{'css/bootstrap.min.css'}" href="public/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{'bower_components/font-awesome/css/font-awesome.min.css'}" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"
+          rel="stylesheet"/>
+    <link th:href="@{'bower_components/chosen/chosen.css'}" href="bower_components/chosen/chosen.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{'css/main.css'}" href="public/css/main.css" type="text/css" rel="stylesheet"/>
+</head>
+<body onload="startTime()">
+<div class="container form-group" sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-2">
+        <a class="btn btn-block btn-danger" th:href="@{/admin}">Administrare</a>
+    </div>
+    <form th:action="@{/logout}" method="post" class="col-md-2">
+        <input class="btn btn-block btn-warning" value="Logout" type="submit"></input>
+    </form>
+    <br/>
+
+    <h1 id="display-poarta" class="bold" style="display: none;"><span sec:authentication="principal.username" class="bold text-primary"></span>,&nbsp;e&#x219;ti la poarta <i class="fa fa-map-marker text-primary"></i>&nbsp;<span id="poarta" class="text-primary"></span><br/>&#x219;i&nbsp;este&nbsp;<i class="fa fa-clock-o text-primary"></i>&nbsp;<span id="ceas" class="text-primary"></span></h1>
+
+    <div id="poarta-select-container" class="col-xs-12 col-md-4">
+        <div class="form-group">
+            <label for="poarta-select">
+                <h1>Alege poarta</h1>&nbsp;
+                <select id="poarta-select" class="chosen-select" data-placeholder="Alege poarta...">
+                    <option></option>
+                    <option value="G1">G1</option>
+                    <option value="G2">G2</option>
+                    <option value="G3">G3</option>
+                    <option value="G4">G4</option>
+                    <option value="U1">U1</option>
+                    <option value="U2">U2</option>
+                    <option value="U3">U3</option>
+                    <option value="U4">U4</option>
+                    <option value="U5">U5</option>
+                    <option value="U6">U6</option>
+                    <option value="U7">U7</option>
+                    <option value="U8">U8</option>
+                    <option value="U9">U9</option>
+                    <option value="U10">U10</option>
+                    <option value="U11">U11</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div id="direction-select-container" class="col-xs-12 col-md-4" style="display: none;">
+        <label for="direction-select"><h1>Alege ce numeri</h1>&nbsp;
+            <select id="direction-select" class="chosen-select" data-placeholder="Alege num&abreve;r&abreve;toare...">
+                <option></option>
+                <option value="IN">Num&abreve;r&abreve; intr&abreve;ri</option>
+                <option value="OUT">Num&abreve;r&abreve; ie&#x219;iri</option>
+            </select>
+        </label>
+    </div>
+</div>
+<div id="counter" class="container" sec:authorize="isAuthenticated()" style="display: none;">
+    <div class="count-info" style="margin: auto;">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 text-center">
+                <div id="count-container" class="text-center">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="bower_components/mustache.js/mustache.min.js" type="text/javascript"></script>
+<script src="bower_components/chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="bower_components/bootbox.js/bootbox.js" type="text/javascript"></script>
+<script src="bower_components/moment/min/moment.min.js" type="text/javascript"></script>
+<script src="bower_components/moment/min/moment-with-locales.min.js" type="text/javascript"></script>
+<script src="bower_components/moment/locale/ro.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>

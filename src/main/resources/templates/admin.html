@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
+    <title>Counter</title>
+    <link th:href="@{'css/bootstrap.min.css'}" href="public/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link th:href="@{'bower_components/font-awesome/css/font-awesome.min.css'}" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"
+          rel="stylesheet"/>
+    <link th:href="@{'css/main.css'}" href="public/css/main.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container form-group" sec:authorize="isAuthenticated()">
+     <span class="col-md-2">
+        <h1>Salutare <span sec:authentication="principal.username" class="bold"></span></h1>
+    </span>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-2 col-md-offset-6">
+        <a class="btn btn-block btn-success" th:href="@{/}">Num&abreve;r&abreve;</a>
+    </div>
+    <form th:action="@{/logout}" method="post" class="col-md-2">
+        <input class="btn btn-block btn-warning" value="Logout" type="submit"></input>
+    </form>
+</div>
+
+<div class="container">
+    <div class="well container-fluid">
+        <table class="table table-bordered text-center">
+            <thead>
+            <tr>
+                <th rowspan="2">Entrance</th>
+                <th colspan="3">Day 1</th>
+                <th colspan="3">Day 2</th>
+                <th colspan="3">Day 3</th>
+                <th colspan="3">Day 4</th>
+                <th colspan="3">Day 5</th>
+                <th colspan="3">Day 6</th>
+                <th colspan="3">Day 7</th>
+                <th colspan="3">Day 8</th>
+            </tr>
+            <tr>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+                <th>10-12</th>
+                <th>14-16</th>
+                <th>19-21</th>
+            </tr>
+            </thead>
+            <tbody id="result-table">
+            </tbody>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="3">A</td>
+                <td colspan="3">B</td>
+                <td colspan="3">C</td>
+                <td colspan="3">D</td>
+                <td colspan="3">B</td>
+                <td colspan="3">C</td>
+                <td colspan="3">D</td>
+                <td colspan="3">A</td>
+            </tr>
+            <tr>
+                <td>
+                    Legend&abreve;
+                </td>
+                <td colspan="12"><span class="label label-success">?</span> - Persoane intrate</td>
+                <td colspan="12"><span class="label label-danger">?</span> - Persoane ie&#x219;ite</td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="bower_components/mustache.js/mustache.min.js" type="text/javascript"></script>
+<script src="bower_components/bootbox.js/bootbox.js" type="text/javascript"></script>
+<script id="table-row-template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{ poarta }}</td>
+        <td>{{ #dayOne.intervalOne.in }}<span class="label label-success">{{ dayOne.intervalOne.in }}</span>{{/dayOne.intervalOne.in}} {{ #dayOne.intervalOne.out }}<span class="label label-danger">{{ dayOne.intervalOne.out }}</span>{{/dayOne.intervalOne.out}}</td>
+        <td>{{ #dayOne.intervalTwo.in }}<span class="label label-success">{{ dayOne.intervalTwo.in }}</span>{{/dayOne.intervalTwo.in}} {{ #dayOne.intervalTwo.out }}<span class="label label-danger">{{ dayOne.intervalTwo.out }}</span>{{/dayOne.intervalTwo.out}}</td>
+        <td>{{ #dayOne.intervalThree.in }}<span class="label label-success">{{ dayOne.intervalThree.in }}</span>{{/dayOne.intervalThree.in}} {{ #dayOne.intervalThree.out }}<span class="label label-danger">{{ dayOne.intervalThree.out }}</span>{{/dayOne.intervalThree.out}}</td>
+
+        <td>{{ #dayTwo.intervalOne.in }}<span class="label label-success">{{ dayTwo.intervalOne.in }}</span>{{/dayTwo.intervalOne.in}} {{ #dayTwo.intervalOne.out }}<span class="label label-danger">{{ dayTwo.intervalOne.out }}</span>{{/dayTwo.intervalOne.out}}</td>
+        <td>{{ #dayTwo.intervalTwo.in }}<span class="label label-success">{{ dayTwo.intervalTwo.in }}</span>{{/dayTwo.intervalTwo.in}} {{ #dayTwo.intervalTwo.out }}<span class="label label-danger">{{ dayTwo.intervalTwo.out }}</span>{{/dayTwo.intervalTwo.out}}</td>
+        <td>{{ #dayTwo.intervalThree.in }}<span class="label label-success">{{ dayTwo.intervalThree.in }}</span>{{/dayTwo.intervalThree.in}} {{ #dayTwo.intervalThree.out }}<span class="label label-danger">{{ dayTwo.intervalThree.out }}</span>{{/dayTwo.intervalThree.out}}</td>
+
+        <td>{{ #dayThree.intervalOne.in }}<span class="label label-success">{{ dayThree.intervalOne.in }}</span>{{/dayThree.intervalOne.in}} {{ #dayThree.intervalOne.out }}<span class="label label-danger">{{ dayThree.intervalOne.out }}</span>{{/dayThree.intervalOne.out}}</td>
+        <td>{{ #dayThree.intervalTwo.in }}<span class="label label-success">{{ dayThree.intervalTwo.in }}</span>{{/dayThree.intervalTwo.in}} {{ #dayThree.intervalTwo.out }}<span class="label label-danger">{{ dayThree.intervalTwo.out }}</span>{{/dayThree.intervalTwo.out}}</td>
+        <td>{{ #dayThree.intervalThree.in }}<span class="label label-success">{{ dayThree.intervalThree.in }}</span>{{/dayThree.intervalThree.in}} {{ #dayThree.intervalThree.out }}<span class="label label-danger">{{ dayThree.intervalThree.out }}</span>{{/dayThree.intervalThree.out}}</td>
+
+        <td>{{ #dayFour.intervalOne.in }}<span class="label label-success">{{ dayFour.intervalOne.in }}</span>{{/dayFour.intervalOne.in}} {{ #dayFour.intervalOne.out }}<span class="label label-danger">{{ dayFour.intervalOne.out }}</span>{{/dayFour.intervalOne.out}}</td>
+        <td>{{ #dayFour.intervalTwo.in }}<span class="label label-success">{{ dayFour.intervalTwo.in }}</span>{{/dayFour.intervalTwo.in}} {{ #dayFour.intervalTwo.out }}<span class="label label-danger">{{ dayFour.intervalTwo.out }}</span>{{/dayFour.intervalTwo.out}}</td>
+        <td>{{ #dayFour.intervalThree.in }}<span class="label label-success">{{ dayFour.intervalThree.in }}</span>{{/dayFour.intervalThree.in}} {{ #dayFour.intervalThree.out }}<span class="label label-danger">{{ dayFour.intervalThree.out }}</span>{{/dayFour.intervalThree.out}}</td>
+
+        <td>{{ #dayFive.intervalOne.in }}<span class="label label-success">{{ dayFive.intervalOne.in }}</span>{{/dayFive.intervalOne.in}} {{ #dayFive.intervalOne.out }}<span class="label label-danger">{{ dayFive.intervalOne.out }}</span>{{/dayFive.intervalOne.out}}</td>
+        <td>{{ #dayFive.intervalTwo.in }}<span class="label label-success">{{ dayFive.intervalTwo.in }}</span>{{/dayFive.intervalTwo.in}} {{ #dayFive.intervalTwo.out }}<span class="label label-danger">{{ dayFive.intervalTwo.out }}</span>{{/dayFive.intervalTwo.out}}</td>
+        <td>{{ #dayFive.intervalThree.in }}<span class="label label-success">{{ dayFive.intervalThree.in }}</span>{{/dayFive.intervalThree.in}} {{ #dayFive.intervalThree.out }}<span class="label label-danger">{{ dayFive.intervalThree.out }}</span>{{/dayFive.intervalThree.out}}</td>
+
+        <td>{{ #daySix.intervalOne.in }}<span class="label label-success">{{ daySix.intervalOne.in }}</span>{{/daySix.intervalOne.in}} {{ #daySix.intervalOne.out }}<span class="label label-danger">{{ daySix.intervalOne.out }}</span>{{/daySix.intervalOne.out}}</td>
+        <td>{{ #daySix.intervalTwo.in }}<span class="label label-success">{{ daySix.intervalTwo.in }}</span>{{/daySix.intervalTwo.in}} {{ #daySix.intervalTwo.out }}<span class="label label-danger">{{ daySix.intervalTwo.out }}</span>{{/daySix.intervalTwo.out}}</td>
+        <td>{{ #daySix.intervalThree.in }}<span class="label label-success">{{ daySix.intervalThree.in }}</span>{{/daySix.intervalThree.in}} {{ #daySix.intervalThree.out }}<span class="label label-danger">{{ daySix.intervalThree.out }}</span>{{/daySix.intervalThree.out}}</td>
+
+        <td>{{ #daySeven.intervalOne.in }}<span class="label label-success">{{ daySeven.intervalOne.in }}</span>{{/daySeven.intervalOne.in}} {{ #daySeven.intervalOne.out }}<span class="label label-danger">{{ daySeven.intervalOne.out }}</span>{{/daySeven.intervalOne.out}}</td>
+        <td>{{ #daySeven.intervalTwo.in }}<span class="label label-success">{{ daySeven.intervalTwo.in }}</span>{{/daySeven.intervalTwo.in}} {{ #daySeven.intervalTwo.out }}<span class="label label-danger">{{ daySeven.intervalTwo.out }}</span>{{/daySeven.intervalTwo.out}}</td>
+        <td>{{ #daySeven.intervalThree.in }}<span class="label label-success">{{ daySeven.intervalThree.in }}</span>{{/daySeven.intervalThree.in}} {{ #daySeven.intervalThree.out }}<span class="label label-danger">{{ daySeven.intervalThree.out }}</span>{{/daySeven.intervalThree.out}}</td>
+
+        <td>{{ #dayEight.intervalOne.in }}<span class="label label-success">{{ dayEight.intervalOne.in }}</span>{{/dayEight.intervalOne.in}} {{ #dayEight.intervalOne.out }}<span class="label label-danger">{{ dayEight.intervalOne.out }}</span>{{/dayEight.intervalOne.out}}</td>
+        <td>{{ #dayEight.intervalTwo.in }}<span class="label label-success">{{ dayEight.intervalTwo.in }}</span>{{/dayEight.intervalTwo.in}} {{ #dayEight.intervalTwo.out }}<span class="label label-danger">{{ dayEight.intervalTwo.out }}</span>{{/dayEight.intervalTwo.out}}</td>
+        <td>{{ #dayEight.intervalThree.in }}<span class="label label-success">{{ dayEight.intervalThree.in }}</span>{{/dayEight.intervalThree.in}} {{ #dayEight.intervalThree.out }}<span class="label label-danger">{{ dayEight.intervalThree.out }}</span>{{/dayEight.intervalThree.out}}</td>
+    </tr>
+
+
+</script>
+<script src="js/admin.js" type="text/javascript"></script>
+</body>
+</html>

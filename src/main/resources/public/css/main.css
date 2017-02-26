@@ -1,0 +1,77 @@
+body {
+    padding-top: 70px;
+}
+
+*.unselectable {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    cursor: default;
+
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+}
+
+*.selectable {
+    -moz-user-select: initial;
+    -khtml-user-select: initial;
+    -webkit-user-select: initial;
+    cursor: default;
+
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: initial;
+    user-select: initial;
+}
+
+.display-panel {
+    min-height: 500px;
+}
+.count-info {
+    margin: auto;
+}
+
+.count-info .round-exit {
+    background-color: rgba(221, 60, 46, 0.88);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 40px;
+    font-family: "Open Sans", sans-serif;
+}
+
+.count-info .round-enter {
+    background-color: #3f903f;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 40px;
+    font-family: "Open Sans", sans-serif;
+}
+
+.count-info .round-enter span,
+.count-info .round-exit span {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: bold;
+}
