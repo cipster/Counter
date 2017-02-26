@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -34,14 +33,6 @@ public class CountService {
     @Autowired
     public CountService(PersonCountRepository personCountRepository) {
         this.personCountRepository = personCountRepository;
-        this.dayOne = LocalDateTime.parse("2017-02-25 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.dayTwo = LocalDateTime.parse("2017-02-26 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.dayThree = LocalDateTime.parse("2017-02-27 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.dayFour = LocalDateTime.parse("2017-02-28 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.dayFive = LocalDateTime.parse("2017-03-01 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.daySix = LocalDateTime.parse("2017-03-02 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.daySeven = LocalDateTime.parse("2017-03-03 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.dayEight = LocalDateTime.parse("2017-03-04 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public PersonCount addPersonCount(PersonCount personCount) {
@@ -54,7 +45,15 @@ public class CountService {
         return (List<PersonCount>) personCountRepository.findAll();
     }
 
-    public List<PersonCountMetric> getMetrics() {
+    public List<PersonCountMetric> getMetrics(LocalDateTime firstDay) {
+        this.dayOne = firstDay;
+        this.dayTwo = this.dayOne.plusDays(1);
+        this.dayThree = this.dayTwo.plusDays(1);
+        this.dayFour = this.dayThree.plusDays(1);
+        this.dayFive = this.dayFour.plusDays(1);
+        this.daySix = this.dayFive.plusDays(1);
+        this.daySeven = this.daySix.plusDays(1);
+        this.dayEight = this.daySeven.plusDays(1);
         return EnumSet.allOf(Poarta.class)
                 .stream()
                 .map(poarta -> {
@@ -156,6 +155,6 @@ public class CountService {
             default:
                 throw new IllegalArgumentException("No such interval");
         }
-        return Timestamp.from(localDateTime.toInstant(ZoneOffset.ofHours(0)));
+        return Timestamp.from(localDateTime.toInstant(ZoneOffset.ofHours(2)));
     }
 }

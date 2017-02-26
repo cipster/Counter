@@ -6,6 +6,8 @@ import com.rainsoftware.application.service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -15,12 +17,13 @@ public class CountController {
     private CountService personCountService;
 
     @PostMapping
-    public PersonCount increasePersonCount(@RequestBody PersonCount personCount){
+    public PersonCount increasePersonCount(@RequestBody PersonCount personCount) {
         return personCountService.addPersonCount(personCount);
     }
 
-    @GetMapping
-    public List<PersonCountMetric> all(){
-        return personCountService.getMetrics();
+    @GetMapping("/{firstDay}")
+    public List<PersonCountMetric> all(@PathVariable String firstDay) {
+        LocalDateTime localDateTime = LocalDateTime.parse(firstDay + " 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return personCountService.getMetrics(localDateTime);
     }
 }
